@@ -22,17 +22,15 @@ export class SmartphonesPage {
         await this.page.locator('.ModelList').waitFor({ state: 'visible' })
     }
 
-    async getCards(): Promise<ProductCard[]> {
-        const count = await this.productCards.count();
-        return Array.from({ length: count }, (_, i) =>
-          new ProductCard(this.productCards.nth(i))
-        );
+    async getCards(): Promise<Array<Locator>> {
+        return this.productCards.all()
     }
 
     async verifyProductsHaveBasicElements(){
         const cards = await this.getCards();
         for (const card of cards) {
-            await card.validateAll();
+            const productCard = new ProductCard(card)
+            await productCard.validateAll();
         }
     }
 }
