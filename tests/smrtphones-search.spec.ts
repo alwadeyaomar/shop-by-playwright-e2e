@@ -23,6 +23,17 @@ test.describe('Поиск и фильтрация смартфонов', ()=>{
         await test.step('Проверка наличия заголовка, цены и изображения', async () => {
             await smartphonesPage.verifyProductsHaveBasicElements();
         });
+
+        await test.step('Проверка соответствия результатов запросу "iPhone"', async () => {
+            await smartphonesPage.verifySearchResult('iphone');
+        });
         
+        await test.step('Проверка сортировк товаров "по возрастанию"', async () => {
+            await smartphonesPage.sortProduct('С дешевых');
+        });
+
+        await test.step('Проверка фильтрации товаров по цене"', async () => {
+            await smartphonesPage.validateProductsPriceInRange(6300, 6400);
+        });
     })
 })
